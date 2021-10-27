@@ -2,18 +2,18 @@
 
 # Video Demo
 
-https://user-images.githubusercontent.com/13304149/129398640-5751e777-c952-4456-9c36-d6710952c3d4.mp4
+.
 # Prerequisites
 
 * Docker
 
 # Quick Install - Docker Version
 
-1. With terminal, navigate to "/app" - the folder with Dockerfile in it.
+1. With terminal, navigate to "/" - the root folder.
 2. Run in the '/app' directory:
 
 ```
-$ docker build -t ps-container:dev .
+docker build -t jupyter/custom-notebook .
 ```
 
 3. After image is built, run:
