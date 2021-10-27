@@ -16,22 +16,26 @@
 docker build -t jupyter/custom-notebook .
 ```
 
-3. After image is built, go directly into the "/" base project directory from the terminal and run:
+3. After image is built, go directly into the "target/app"  project directory from the terminal and run:
 
 ```
 docker run -it --rm                                   \
 -p 8888:8888                                          \
 -e JUPYTER_ENABLE_LAB=yes                             \
---mount type=bind,source="$(pwd)"/target,target=/app  \
+-v "$PWD":/home/jovyan/work                           \
 --name datanotebook                                   \
 jupyter/custom-notebook
 ```
-
 * -it ...is interactive tty mode.
 * --rm ...Automatically removes the container when it exits
 * -e ...Sets environment variables, in this case we ask to use the new version, "JUPYTER_ENABLE_LAB=yes" instead of Jupyter Notebook.
-* -v ${PWD}:/app mounts a volume at "current_directory/app"
+* -v ${PWD}:/home/jovyan/work mounts a volume, present within the LAB under, "work" at "current_directory/app"
 
+* When you create a notebook within that location, using bind mounts, it is possible to persist data on the disk itself.
+
+* Looking at the folder structure, if you create a jupyter notebook for example, title it, "helloworld.ipynb" and save it, it will persist on the disk at /target/app.
+
+* The next time you start up your application in that same folder using the commands above, the notebook will be available again in the same state as when it was left off in the container.
 # Notes on Startup of Application
 
 Once the application is launched, you will get the following messages:
@@ -55,7 +59,7 @@ Executing the command: jupyter notebook
      or http://127.0.0.1:8888/?token=f92f0e4fbd972c18aafe298ca95e529fea733daf74fe17b5
 
 ```
-
+Since this is running from a Docker container and not direclty on the host machine, the way to run this is always going to be to visit 127.0.0.1:8888, followed by the token, since this is the port we set up on localhost to run this notebook via Docker.
 
 # Demo Deployment:
 
