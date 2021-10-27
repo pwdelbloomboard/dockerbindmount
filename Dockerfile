@@ -15,7 +15,7 @@ RUN pip install pandas numpy matplotlib plotly
 RUN pip install gpxpy
 
 # copy data we want to evaluate and play around with:
-COPY /datainclude /home/jovyan/work
+COPY /target/app /home/jovyan/work
 
 # Switch back to jovyan user to avoid accidental container runs as root
 USER $NB_UID
